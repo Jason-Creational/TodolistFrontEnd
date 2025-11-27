@@ -1,0 +1,37 @@
+# ignore node modules
+node_modules/
+
+# ignore build output
+dist/
+
+# ignore environment variable files
+.env
+
+# ignore log files
+logs/
+
+# ignore OS generated files
+.DS_Store
+
+# ignore IDE specific files
+.vscode/
+
+# ignore test coverage reports
+coverage/
+
+# ignore temporary files
+*.tmp
+
+# ignore lock files
+yarn.lock
+
+# ignore compiled files
+*.js
+
+# ignore package manager files
+
+# ignore nextjs
+
+
+
+
