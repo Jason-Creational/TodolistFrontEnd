@@ -30,7 +30,10 @@ yarn.lock
 
 # ignore package manager files
 
-# ignore nextjs
+# ignore nextjs files
+.next/
+
+
 
 
 
