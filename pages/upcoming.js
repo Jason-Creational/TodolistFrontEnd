@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import TaskList from '../components/TaskList';
 import TaskInput from '../components/TaskInput';
 import { getTasks, updateTask, deleteTask } from '../apis/tasks';
+import { useRouter } from 'next/router';
 
 export default function UpcomingPage() {
+  const router = useRouter();
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -29,11 +31,14 @@ export default function UpcomingPage() {
     <div>
       <h1 className="text-2xl font-bold mb-4">Upcoming</h1>
       <TaskInput onAdded={(task) => setTasks((prev) => [task, ...prev])} />
-      <TaskList
+      <div className="mt-6">
+        <TaskList
         tasks={tasks}
-        onToggleComplete={toggleTaskCompletion}
+        onToggle={toggleTaskCompletion}
         onDelete={deleteTaskHandler}
+        onEdit={(t) => router.push(`/tasks/${t.id}/edit`)}
       />
+      </div>
     </div>
   );
 }

@@ -1,13 +1,29 @@
-import { useState } from 'react';
-import { loginUser } from '../apis/auth';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { loginUser } from "../apis/auth";
+import { useToast } from "../components/ToastContext";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const showToast = useToast();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await loginUser({ email, password });
-    // Handle result: save token, redirect, etc.
+    try {
+      const result = await loginUser({ email, password });
+      const token = result?.access_token || result?.token;
+      if (token) {
+        showToast("Logged in successfully", "success");
+        router.push("/");
+      } else {
+        alert("Login failed");
+      }
+    } catch (err) {
+      console.error(err);
+      showToast(err.response?.data?.detail || "Login error", "error");
+    }
   };
 
   return (

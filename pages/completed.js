@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import TaskList from '../components/TaskList';
 import { getTasks } from '../apis/tasks';
+import { useRouter } from 'next/router';
 
 export default function CompletedPage() {
+  const router = useRouter();
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function CompletedPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Completed</h1>
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} onEdit={(t) => router.push(`/tasks/${t.id}/edit`)} />
     </div>
   );
 }

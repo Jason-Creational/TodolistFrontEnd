@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import TaskList from '../components/TaskList';
 import TaskInput from '../components/TaskInput';
 import { getTasks, updateTask, deleteTask } from '../apis/tasks';
+import { useRouter } from 'next/router';
 
 export default function TodayPage() {
   const [tasks, setTasks] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     getTasks('today').then(setTasks); // Corrected to use getTasks
@@ -24,7 +26,9 @@ export default function TodayPage() {
     <div>
       <h1 className="text-2xl font-bold mb-4">Today</h1>
       <TaskInput onAdded={(task) => setTasks((prev) => [task, ...prev])} />
-      <TaskList tasks={tasks} onToggleComplete={toggle} onDelete={del} />
+      <div className="mt-6">
+        <TaskList tasks={tasks} onToggle={toggle} onDelete={del} onEdit={(t) => router.push(`/tasks/${t.id}/edit`)} />
+      </div>
     </div>
   );
 }
